@@ -40,7 +40,7 @@ When deploying websites: (about `npm run deploy` but not `npm start` or `npm run
 
 5. If there are update after one successful `npm run deploy`, automatic action should be take. If there are any problems, try to read error message given by github action.
 
-    * Check `build and deploy` and change `uses: actions/cache@v2` to `uses: actions/cache@v4` (still version update, v2 deprecated at this time).
+    * My personal update: Check `build and deploy` and change `uses: actions/cache@v2` to `uses: actions/cache@v4` (still version update, v2 deprecated at this time). Then my github action may run automatically with the next commit.
 
 * **Always check timestamp if information provided not useful, especially months and years later. There may be more and more updates of different versions in the future for all aspects.**
 
