@@ -38,7 +38,11 @@ When deploying websites: (about `npm run deploy` but not `npm start` or `npm run
 
 * Seems like copying from 
 
-4. (Extra step I have take) If still not working, do `npm update` and then try again.
+4. (Extra step I have take) If still not working, do `npm update` and then try `npm run deploy` again.
+
+5. If there are update after one successful `npm run deploy`, automatic action should be take. If there are any problems, try to check `build-and-deploy.yml`.
+
+    * Current change test: change `uses: actions/cache@v2` to `uses: actions/cache@v4`.
 
 (Written by someone tried to debug for javascript stuff only, actually mostly about missing modules and version conflicts and mix of both and also other confusing problems, for three days or more. QAQ)
 
