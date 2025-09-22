@@ -1,8 +1,8 @@
 #version 300 es
 precision highp float;
 
-in vec3 vs_Pos;
-in vec3 vs_Nor;
+in vec4 vs_Pos;
+in vec4 vs_Nor;
 
 uniform float u_Time;
 uniform mat4 u_Model;
@@ -11,8 +11,7 @@ uniform float u_Amp;
 uniform float u_Freq;
 
 out float fs_Displacement;
-out vec3 fs_Nor;
-out vec3 fs_Pos;
+out vec4 fs_Pos;
 
 float hash(vec3 p) {
     return fract(sin(dot(p, vec3(127.1, 311.7, 74.7))) * 43758.5453);
@@ -47,16 +46,15 @@ void main() {
     float displacement = 0.0;
 
     // Low freq and high amp
-    displacement += sin(4.0 * u_Freq * fbm(vs_Pos) + sin(u_Time) * 0.5 * u_Freq) * u_Amp * 0.5;
+    displacement += sin(4.0 * u_Freq * fbm(vs_Pos.xyz) + sin(u_Time) * 0.5 * u_Freq) * u_Amp * 0.5;
 
     // High freq and low amp
-    displacement += cos(20.0 * u_Freq * fbm(vs_Pos) + cos(u_Time) * 2.0 * u_Freq) * u_Amp * 0.2;
+    displacement += cos(20.0 * u_Freq * fbm(vs_Pos.xyz) + cos(u_Time) * 2.0 * u_Freq) * u_Amp * 0.2;
 
-    vec3 displacedPosition = vs_Pos + vs_Nor * displacement;
+    vec3 displacedPosition = vec3(vs_Pos) + vec3(vs_Nor) * displacement;
 
     fs_Displacement = displacement;
-    fs_Nor = normalize(mat3(u_Model) * vs_Nor);
-    fs_Pos = vec3(u_Model * vec4(displacedPosition, 1.0));
+    fs_Pos = u_Model * vec4(displacedPosition, 1.0);
 
-    gl_Position = u_ViewProj * vec4(fs_Pos, 1.0);
+    gl_Position = u_ViewProj * fs_Pos;
 }

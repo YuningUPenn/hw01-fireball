@@ -17,7 +17,7 @@ const controls = {
   radius: 2,
   amp: 0.5,
   freq: 1.0,
-  density: 50.0,
+  density: 80.0,
 };
 
 let square: Square;
@@ -66,7 +66,7 @@ function main() {
   gui.add(controls, "radius", 1, 3).step(0.2);
   gui.add(controls, 'amp', 0.2, 0.8).step(0.01);
   gui.add(controls, 'freq', 0.0, 2.0).step(0.1);
-  gui.add(controls, 'density', 10.0, 100.0).step(1.0).name('star density');
+  gui.add(controls, 'density', 30.0, 150.0).step(1.0).name('star density');
 
   gui.add({ reset: () => {
     // Reset all the parameters in controls
@@ -74,7 +74,7 @@ function main() {
     controls.radius = 2;
     controls.amp = 0.5;
     controls.freq = 1.0;
-    controls.density = 50.0;
+    controls.density = 80.0;
     // Update all controls in gui
     gui.__controllers.forEach(controller => controller.updateDisplay());
   }}, 'reset');
@@ -110,8 +110,8 @@ function main() {
   ]);
 
   const test = new ShaderProgram([
-    new Shader(gl.VERTEX_SHADER, require('./shaders/test-vert.glsl')),
-    new Shader(gl.FRAGMENT_SHADER, require('./shaders/test-frag.glsl')),
+    new Shader(gl.VERTEX_SHADER, require('./shaders/fireball-vert.glsl')),
+    new Shader(gl.FRAGMENT_SHADER, require('./shaders/fireball-frag.glsl')),
   ]);
   
   const bgShader = new ShaderProgram([

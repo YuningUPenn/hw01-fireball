@@ -2,8 +2,7 @@
 precision highp float;
 
 in float fs_Displacement;
-in vec3 fs_Nor;
-in vec3 fs_Pos;
+in vec4 fs_Pos;
 
 uniform float u_Time;
 
@@ -59,10 +58,10 @@ void main() {
     vec3 baseColor = mix(orangeColor, redColor, d);
 
     // Perlin Noise
-    float perlinVal = perlin(fs_Pos * vec3(2.0, 6.0, 2.0) + vec3(sin(u_Time)));
+    float perlinVal = perlin(fs_Pos.xyz * vec3(2.0, 6.0, 2.0) + vec3(sin(u_Time)));
 
     // Worley noise
-    float worleyVal = worley(fs_Pos * 1.5 + 0.5 * sin(u_Time));
+    float worleyVal = worley(fs_Pos.xyz * 1.5 + 0.5 * sin(u_Time));
     float worleyContrast = smoothstep(0.0, 0.5, worleyVal);
 
     // Combine Perlin and Worley
